@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../../../config/database/db.connection.js';
 
-const usersModels = sequelize.define({
+const usersModels = sequelize.define('users', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -19,6 +19,8 @@ const usersModels = sequelize.define({
     password: {
         type: DataTypes.TEXT,
     }, 
+}, {
+    timestamps: false
 })
 
 export default usersModels;

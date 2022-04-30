@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS tasks_db;
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY NOT NULL,
+    full_name VARCHAR (35) NOT NULL,
+    nick_name VARCHAR(25) NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL
+);
+
+ALTER TABLE users ADD createdAt DATE NOT NULL;
