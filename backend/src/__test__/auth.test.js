@@ -78,5 +78,55 @@ describe('POST /auth/signup', () => {
         expect(response.body.userCreated).toBe(true);
         expect(response.body.message).toBe('Your user was created successfully')
     });
+    test('email or nick name used', async () => {
+        const response = await request(app)
+            .post('/auth/signup')
+            .set('Accept', 'application/json')
+            .send({
+                full_name: 'Test Example',
+                nick_name: 'test_fer59',
+                email: 'test.example@gmail.com',
+                password: "test12345"
+            });
+        expect(response.body.message).toEqual('Your email or nick name is already used')
+    });
     // test('verify email', async () => {});
 });
+
+// describe('POST /auth/login ', () => {
+//     test('Password incorrect', async () => {
+//         const response = await request(app)
+//             .post('/auth/login')
+//             .set('Accept', 'application/json')
+//             .send({
+//                 email: user.email,
+//                 password: '12345676'
+//             })
+//         expect(response.body.auth).toBe(false);
+//         expect(response.body.message).toEqual('Your password is not correct')
+//     });
+//     test("email doesn't exists", async () => {
+//         const response = await request(app)
+//             .post('/auth/login')
+//             .set('Accept', 'application/json')
+//             .send({
+//                 email: 'this.email.doesnt.exist@gmail.com',
+//                 password: user.password
+//             })
+//         expect(response.body.auth).toBe(false);
+//         expect(response.body.message).toEqual("your email doesn't exists")
+//     });
+//     test('Log In success', async () => {
+//         const response = await request(app)
+//             .post('/auth/login')
+//             .set('Accept', 'application/json')
+//             .send({
+//                 email: 'this.email.doesnt.exist@gmail.com',
+//                 password: user.password
+//             })
+//         expect(response.body.auth).toBe(true);
+//         expect(response.body.token).not.toBe(undefined);
+//         token = response.body.token;
+//     });
+//     // test('should ', async () => {});
+// });
