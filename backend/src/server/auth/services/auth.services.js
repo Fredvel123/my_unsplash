@@ -1,6 +1,7 @@
 import UsersDB from "../../users/model/model.users.js";
 import bcrypt from 'bcryptjs';
-
+import jwt from 'jsonwebtoken';
+import dotenvs from '../../../config/dotenv/index.env.js'
 
 export const createNewUser = async (req, res) => {
     const { full_name, email, nick_name, password } = req.body;
@@ -52,10 +53,22 @@ export const createNewUser = async (req, res) => {
 
 export const registerUser = async (req, res) => {
     const { email, password } = req.body;
-    const email_exists = await UsersDB.findOne({where: email});
-    if(email_exists) {
-        res.json(email_exists)
+    const user = await UsersDB.findOne({where: {email}});
+    if(user) {
+        const passwd = await bcrypt.compare(password, user.password);
+        if(passwd) {
+            const token = jwt.sign({id: user.id}, dotenvs.secret_key_jwt, {expiresIn: 60*60*24*14});
+            res.json({
+                auth: true,
+                token: token
+            })
+        }else {
+            res.json({
+                auth: false,
+                message: 'Your password is not correct'
+            })
+        }
     }else {
-        res.json({message: 'fuck you'})
+        res.json({auth: false, message: "your email doesn't exists"})
     }
 };
