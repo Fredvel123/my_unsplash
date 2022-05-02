@@ -8,6 +8,9 @@ export default function Header() {
             <div className="title" >
                 <h2>My ToDo App </h2>
             </div>
+            <nav>
+
+            </nav>
         </HeaderStyle>
     )
 }
