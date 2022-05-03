@@ -11,7 +11,9 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
         <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100&family=Montserrat:wght@300&family=Poppins&display=swap" rel="stylesheet"></link>
       </Head>       
+      <a href="search">Search images</a>
       <Discover />   
+      
       {/* <Header /> */}
     </div>
   )
