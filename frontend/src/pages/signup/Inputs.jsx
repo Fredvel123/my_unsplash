@@ -1,4 +1,6 @@
 import { Input } from "../../styles/signup/form";
+// icons
+// import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 export default function Inputs({type, text, state, setState, expression, callback}) {
     const validations = () => {
@@ -22,13 +24,14 @@ export default function Inputs({type, text, state, setState, expression, callbac
     return(
         <>  
             <Input
-				state={state} 
+				        state={state} 
                 type={type} 
                 placeholder={text}
                 onKeyUp={validations}
                 onBlur={validations}
                 onChange={handlerInput} />
-            
+            {/* <EyeInvisibleOutlined />
+            <EyeOutlined /> */}
         </>
     )
 }

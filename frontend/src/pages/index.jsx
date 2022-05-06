@@ -14,6 +14,7 @@ export default function Home() {
       
       <a href="search">Search images</a>
       <a href="signup">create an account here</a>
+      <a href="login">You already have an account?</a>
       {/* <Discover />    */}
       
       {/* <Header /> */}

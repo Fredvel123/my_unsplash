@@ -36,14 +36,15 @@ export const Input = styled.input`
     margin: 1vh 0;
     padding: 2vh 2%;
     outline: none;
-    /* border: 2px solid white; */
+    border: 2.5px solid white;
     &:hover {
+        border: 2.5px solid lightblue;
         background: lightblue;
     }
     &:focus {
         outline: none;
         /* color: white; */
         background-color: #e8e8e8;
-        border: 2px solid ${({state}) => state.isValid || state.isValid === null ? 'green': 'red'};
+        border: 2.5px solid ${({state}) => state.isValid || state.isValid === null ? 'green': 'red'};
     }
 `

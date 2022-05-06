@@ -4,8 +4,11 @@ import Head from "next/head";
 import Inputs from "./Inputs";
 // styled components
 import { Header, Header_title, IconBack } from "../../styles/signup";
+// components
 import regex from './regex';
 import { Form } from '../../styles/signup/form';
+// endpoint
+import urls from '../../config/endpoints/index.urls';
 
 
 export default function Signup() {
@@ -14,14 +17,33 @@ export default function Signup() {
     const [email, setEmail] = useState({value: '', isValid: null})
     const [password, setPassword] = useState({value: '', isValid: null})
     const [confirmPasswd, setConfirmPasswd] = useState({value: '', isValid: null})
-    
+    const [data, setData] = useState([]);
+
+    const createUser = async () => {
+        const sendInfo = await fetch(urls.signup, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            }, 
+            body: JSON.stringify({
+                full_name: name.value,
+                nick_name: nickName.value,
+                email: email.value,
+                password: password.value
+            })
+        });
+        const response = await sendInfo.json();
+        setData(response);
+    } 
     const handlerSubmit = e => {
         e.preventDefault();
-        console.log(name);
-        console.log(nickName);
-        console.log(email);
-        console.log(password);
-        console.log(confirmPasswd);
+        if(name.isValid, nickName.isValid, email.isValid, password.isValid, confirmPasswd.isValid) {
+            createUser();
+            console.log(data);
+        }else {
+            setData({message: 'Something was wrong'})
+            console.log('user created');
+        }
     }
     const validatePassword = () => {
         if(password.value === confirmPasswd.value) {
@@ -43,7 +65,7 @@ export default function Signup() {
                 <h2>Sign up</h2>
             </Header>
             <Header_title>
-                <h3>Hi, please register yourself to get started</h3>
+                <h3>Hi, please Sign Up to get started</h3>
             </Header_title>
             <Form onSubmit={handlerSubmit}>
                 <Inputs type='text' text='Alexander Fernandez' state={name} setState={setName} expression={regex.name}  />
@@ -53,6 +75,7 @@ export default function Signup() {
                 <Inputs type='password' text='Confirm your password' state={confirmPasswd} setState={setConfirmPasswd} callback={validatePassword} />
                 <button>Register</button>
             </Form>
+            {data.length > 0 ? <p>{data.message}, now you can get started, please make login <a href="/login">Here</a> </p> : null}
         </>
     )
 }
