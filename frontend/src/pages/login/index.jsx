@@ -1,16 +1,36 @@
 import { useState } from "react";
 import Head from "next/head";
+// styled components
 import { Header, IconBack } from "../../styles/login";
+import { Form } from "../../styles/login/form";
+// components
 import Inputs from "./Inputs";
-
+// urls
+import urls from '../../config/endpoints/index.urls';
 
 export default function LogIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [data, setData] = useState(null)
+
+
+    const registerUser = async () => {
+        const sendInfo = await fetch(urls.login, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                email, password
+            })
+        });
+        const response = await sendInfo.json();
+        setData(response)
+    }
+
     const handlerSubmit = e => {
         e.preventDefault();
-        console.log(email);
-        console.log(password);
+        registerUser();
     }
     return (
         <>
@@ -26,11 +46,11 @@ export default function LogIn() {
                 </div>
                 <h3>Hi, what's up! Welcome Back to usplash app</h3>
             </Header>
-            <form onSubmit={handlerSubmit}>
+            <Form onSubmit={handlerSubmit}>
                 <Inputs type='email' text='Write your email here' state={email} setState={setEmail} />
                 <Inputs type='password' text='write your passwod here' state={password} setState={setPassword} />
                 <button>Log In</button>
-            </form>
+            </Form>
         </>
     )
 }

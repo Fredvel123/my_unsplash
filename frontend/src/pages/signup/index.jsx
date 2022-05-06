@@ -3,7 +3,7 @@ import Head from "next/head";
 // components
 import Inputs from "./Inputs";
 // styled components
-import { Header, Header_title, IconBack } from "../../styles/signup";
+import { Header, Header_title, IconBack, Message } from "../../styles/signup";
 // components
 import regex from './regex';
 import { Form } from '../../styles/signup/form';
@@ -17,7 +17,7 @@ export default function Signup() {
     const [email, setEmail] = useState({value: '', isValid: null})
     const [password, setPassword] = useState({value: '', isValid: null})
     const [confirmPasswd, setConfirmPasswd] = useState({value: '', isValid: null})
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
 
     const createUser = async () => {
         const sendInfo = await fetch(urls.signup, {
@@ -75,7 +75,9 @@ export default function Signup() {
                 <Inputs type='password' text='Confirm your password' state={confirmPasswd} setState={setConfirmPasswd} callback={validatePassword} />
                 <button>Register</button>
             </Form>
-            {data.length > 0 ? <p>{data.message}, now you can get started, please make login <a href="/login">Here</a> </p> : null}
+            {data.userCreated ? 
+                <Message>{data.message}, now you can get started, please make login <a href="/login">Here</a> </Message> 
+            : <Message>{data.message}</Message> }
         </>
     )
 }

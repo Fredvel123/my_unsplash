@@ -13,7 +13,9 @@ export default function Home() {
       </Head>       
       
       <a href="search">Search images</a>
+      >br />
       <a href="signup">create an account here</a>
+      <bt />
       <a href="login">You already have an account?</a>
       {/* <Discover />    */}
       

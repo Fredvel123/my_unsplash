@@ -72,3 +72,12 @@ export const IconBack = styled(LeftOutlined)`
         font-size: 40px;
     }
 `
+
+export const Message = styled.p`
+    margin: 0 20%;
+    text-align: center;
+    font-family: ${fonts.letters2};
+    @media screen and (max-width: 650px) {
+        margin:0 5%;      
+    }
+`
